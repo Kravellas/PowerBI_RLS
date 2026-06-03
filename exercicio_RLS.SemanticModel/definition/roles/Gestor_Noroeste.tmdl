@@ -1,0 +1,7 @@
+role Gestor_Noroeste
+	modelPermission: read
+
+	tablePermission dim_regioes = [Regiao] == "Nordeste"
+
+	annotation PBI_Id = 0ed543cf711a4c9e90e9cdbfda561de4
+

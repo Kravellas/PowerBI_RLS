@@ -1,0 +1,99 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "083111544889c0198413",
+  "position": {
+    "x": 20.849420849420849,
+    "y": 277.992277992278,
+    "z": 0,
+    "height": 394.74903474903476,
+    "width": 537.9150579150579,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_regioes"
+                    }
+                  },
+                  "Property": "UF"
+                }
+              },
+              "queryRef": "dim_regioes.UF",
+              "nativeQueryRef": "UF",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fato_bolsa_familia"
+                    }
+                  },
+                  "Property": "Total Repasses"
+                }
+              },
+              "queryRef": "fato_bolsa_familia.Total Repasses",
+              "nativeQueryRef": "Total Repasses"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fato_bolsa_familia"
+                    }
+                  },
+                  "Property": "Total Municipios Atendidos"
+                }
+              },
+              "queryRef": "fato_bolsa_familia.Total Municipios Atendidos",
+              "nativeQueryRef": "Total Municipios Atendidos"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fato_bolsa_familia"
+                    }
+                  },
+                  "Property": "Total Beneficiarios"
+                }
+              },
+              "queryRef": "fato_bolsa_familia.Total Beneficiarios",
+              "nativeQueryRef": "Total Beneficiarios"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fato_bolsa_familia"
+                    }
+                  },
+                  "Property": "Ticket Medio"
+                }
+              },
+              "queryRef": "fato_bolsa_familia.Ticket Medio",
+              "nativeQueryRef": "Ticket Medio"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

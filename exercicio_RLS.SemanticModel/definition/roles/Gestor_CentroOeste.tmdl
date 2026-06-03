@@ -1,0 +1,7 @@
+role Gestor_CentroOeste
+	modelPermission: read
+
+	tablePermission dim_regioes = [Regiao] == "Centro-Oeste"
+
+	annotation PBI_Id = bd29418ef0ca45c2b789f95b861df554
+

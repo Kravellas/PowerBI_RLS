@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "exercicio_RLS"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "35bd82e6-afb8-4ff5-9124-358f1a3df57a"
+  }
+}

@@ -1,0 +1,115 @@
+table fato_bolsa_familia
+	lineageTag: 17657337-fce9-4c6b-8238-dec9bfcc1c2e
+
+	measure 'Total Repasses' = SUM(fato_bolsa_familia[VALOR PARCELA])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 1512aba8-740a-4a42-b77b-6401a355aff6
+
+	measure 'Total Beneficiarios' = DISTINCTCOUNT(fato_bolsa_familia[CPF FAVORECIDO])
+		formatString: 0
+		lineageTag: 1321499b-34f5-4ba5-a68b-17568389ca2d
+
+	measure 'Ticket Medio' = DIVIDE([Total Repasses], [Total Beneficiarios], 0)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: daf4bb21-2912-4da6-9da4-887449d72b7b
+
+	measure 'Total Municipios Atendidos' = DISTINCTCOUNT(fato_bolsa_familia[NOME MUNICÍPIO])
+		formatString: 0
+		lineageTag: bbaae8d9-4f07-403c-9ab7-4d6f2406b510
+
+	column MÊS
+		dataType: string
+		lineageTag: 45a349be-1333-48c6-a0b0-d54fb054d34c
+		summarizeBy: none
+		sourceColumn: MÊS
+
+		annotation SummarizationSetBy = Automatic
+
+	column ANO
+		dataType: string
+		lineageTag: a48a5217-0b6c-4629-93ce-2c6abf382859
+		summarizeBy: none
+		sourceColumn: ANO
+
+		annotation SummarizationSetBy = Automatic
+
+	column UF
+		dataType: string
+		lineageTag: ed655e1a-b466-4cde-8626-e7b6b4042a3b
+		summarizeBy: none
+		sourceColumn: UF
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CÓDIGO MUNICÍPIO SIAFI'
+		dataType: string
+		lineageTag: 887fd644-fc9f-408e-bf20-4e5e2e96028b
+		summarizeBy: none
+		sourceColumn: CÓDIGO MUNICÍPIO SIAFI
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NOME MUNICÍPIO'
+		dataType: string
+		lineageTag: faea068c-dcc5-473b-8b63-f8c5a7bdeb2b
+		summarizeBy: none
+		sourceColumn: NOME MUNICÍPIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CPF FAVORECIDO'
+		dataType: string
+		lineageTag: cfebbe8f-ab5d-4a04-9b1b-770e7717b514
+		summarizeBy: none
+		sourceColumn: CPF FAVORECIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NIS FAVORECIDO'
+		dataType: string
+		lineageTag: 981597c2-5a95-42e6-a9a1-735bcf732bab
+		summarizeBy: none
+		sourceColumn: NIS FAVORECIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NOME FAVORECIDO'
+		dataType: string
+		lineageTag: 2e0251d6-c5d7-4cfd-bfda-a8e8afbd95b8
+		summarizeBy: none
+		sourceColumn: NOME FAVORECIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'VALOR PARCELA'
+		dataType: decimal
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 202b0364-2070-4b11-8fd4-7febc231087a
+		summarizeBy: sum
+		sourceColumn: VALOR PARCELA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	partition fato_bolsa_familia = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\thorc\Desktop\PowerBI_exercicio_RLS\amostra_bolsa (1).csv"),[Delimiter=",", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Últimos caracteres inseridos" = Table.AddColumn(#"Cabeçalhos Promovidos", "Últimos caracteres", each Text.End([MÊS COMPETÊNCIA], 1), type text),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Últimos caracteres inseridos",{"MÊS COMPETÊNCIA", "Últimos caracteres", "UF", "CÓDIGO MUNICÍPIO SIAFI", "NOME MUNICÍPIO", "CPF FAVORECIDO", "NIS FAVORECIDO", "NOME FAVORECIDO", "VALOR PARCELA"}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Colunas Reordenadas","202601","2026",Replacer.ReplaceText,{"MÊS COMPETÊNCIA"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Valor Substituído",{{"MÊS COMPETÊNCIA", "MÊS"}, {"Últimos caracteres", "ANO"}}),
+				    #"Erros Removidos" = Table.RemoveRowsWithErrors(#"Colunas Renomeadas", {"CPF FAVORECIDO"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Erros Removidos", each [CPF FAVORECIDO] <> null and [CPF FAVORECIDO] <> ""),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Linhas Filtradas", {"CPF FAVORECIDO"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Duplicatas Removidas",{{"VALOR PARCELA", Currency.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

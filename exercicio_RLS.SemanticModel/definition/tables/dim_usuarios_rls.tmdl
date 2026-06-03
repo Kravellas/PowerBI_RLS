@@ -1,0 +1,47 @@
+table dim_usuarios_rls
+	lineageTag: 92f869db-8cd9-422c-be9e-a3b354785064
+
+	column email_usuario
+		dataType: string
+		lineageTag: cbef5af2-4d59-482e-ae80-e92560ac0a59
+		summarizeBy: none
+		sourceColumn: email_usuario
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao_permitida
+		dataType: string
+		lineageTag: fe885cab-5fcd-4eb3-94fe-185de5cae116
+		summarizeBy: none
+		sourceColumn: regiao_permitida
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_usuarios_rls = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(
+				        {
+				            {"gestor.norte@ministerio.br", "Norte"},
+				            {"gestor.nordeste@ministerio.br", "Nordeste"},
+				            {"gestor.centroeste@ministerio.br", "Centro-Oeste"},
+				            {"gestor.sudeste@ministerio.br", "Sudeste"},
+				            {"gestor.sul@ministerio.br", "Sul"}
+				        },
+				        {"email_usuario", "regiao_permitida"}
+				    ),
+				    TipoAlterado = Table.TransformColumnTypes(
+				        Fonte,
+				        {
+				            {"email_usuario", type text},
+				            {"regiao_permitida", type text}
+				        }
+				    )
+				in
+				    TipoAlterado
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

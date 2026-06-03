@@ -1,0 +1,28 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["fato_bolsa_familia","dim_usuarios_rls","dim_regioes"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_usuarios_rls
+ref table fato_bolsa_familia
+ref table dim_regioes
+
+ref role Admin
+ref role Gestor_Noroeste
+ref role Gestor_Norte
+ref role Gestor_Sudeste
+ref role Gestor_Sul
+ref role Gestor_CentroOeste
+ref role Gestor_Regional_Dinamico
+
+ref cultureInfo pt-BR
+
