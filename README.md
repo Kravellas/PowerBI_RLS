@@ -60,19 +60,18 @@ As métricas de negócio foram desenvolvidas utilizando a linguagem DAX, prezand
 
 ---
 
-## 4. Estrutura do Relatório (Visual)
+## 4. Dashboard
 
-O relatório foi projetado com foco em clareza, objetividade e experiência do usuário (UX), adotando uma paleta de cores institucional sóbria (Dark Mode nos cartões e elementos estruturados).
 
 ### Página 1 — Visão Geral Nacional
-* **Cabeçalho de KPIs (Cartões):** Alinhamento horizontal no topo exibindo `Total Repasses` (formatado em Moeda), `Total Beneficiários`, `Ticket Médio` e `Total Municípios` (configurado para exibição do número exato).
+* **Cabeçalho de KPIs (Cartões):** Alinhamento horizontal no topo exibindo `Total Repasses`, `Total Beneficiários`, `Ticket Médio` e `Total Municípios`.
 * **Análise Regional (Gráfico de Barras):** Gráfico exibindo a distribuição do `Total Repasses` por `Regiao`.
 * **Filtros Temporais (Segmentação de Dados):** Segmentadores dinâmicos configurados como listas suspensas para seleção rápida de `ANO` e `MES`.
 
 ### Página 2 — Detalhe por Região/Estado
 * **Matriz Analítica:** Tabela cruzada exibindo por `UF`: *Municípios Atendidos*, *Total Beneficiários*, *Total Repasses* e *Ticket Médio*, permitindo ordenação instantânea por qualquer coluna.
 * **Gráfico de Barras Horizontais (Top 10 Municípios):** Exibe apenas os 10 municípios que mais receberam recursos, utilizando a regra de filtragem nativa por valor da medida `[Total Repasses]`.
-* **Filtro Geográfico:** Segmentação de dados utilizando o campo `Regiao` (formato *Em Bloco/Botões*) para alternância rápida entre os mercados.
+* **Filtro Geográfico:** Segmentação de dados utilizando o campo `Regiao` para alternância rápida entre os mercados.
 
 ---
 
