@@ -16,9 +16,9 @@ O objetivo deste painel é fornecer uma ferramenta de tomada de decisão para ge
 
 O modelo foi estruturado seguindo as melhores práticas de modelagem multidimensional , garantindo performance e suporte correto à propagação de filtros para a segurança de dados.
 
-### 📋 Tabelas do Modelo
-* **`fato_bolsa_familia`**: Contém os dados transacionais de repasses. Principais colunas utilizadas: `VALOR PARCELA`, `CPF` (identificador do beneficiário), `NOME MUNICÍPIO`, `ANO` e `MES`.
-* **`dim_regioes`**: Tabela dimensional gerada via Power Query (Linguagem M) que mapeia cada uma das 27 Unidades Federativas (UF) à sua respectiva Região geográfica.
+### Tabelas do Modelo
+* **`fato_bolsa_familia`**: Contém os dados transacionais de repasses. Principais colunas utilizadas: `VALOR PARCELA`, `CPF`, `NOME MUNICÍPIO`, `ANO` e `MES`.
+* **`dim_regioes`**: Tabela dimensional gerada via Power Query que mapeia cada uma das 27 Unidades Federativas (UF) à sua respectiva Região geográfica.
 * **`dim_usuarios_rls`**: Tabela de mapeamento de segurança que associa o e-mail corporativo de cada gestor regional à região que ele possui permissão para visualizar.
 
 ### Relacionamentos e Cardinalidade
@@ -84,7 +84,7 @@ Para atender aos requisitos de conformidade e privacidade de dados, foram implem
 Criado diretamente na guia de Modelagem para casos onde o acesso é fixo e imutável. Foram criados perfis como:
 * `Admin`: Sem restrições de tabelas (visualiza o país inteiro).
 * `Gestor_Norte`: Filtro aplicado em `dim_regioes`: `[Regiao] = "Norte"`
-* *(O mesmo padrão foi replicado para as funções `Gestor_Nordeste`, `Gestor_CentroOeste`, `Gestor_Sudeste` e `Gestor_Sul`).*
+    * *(O mesmo padrão foi replicado para as funções `Gestor_Nordeste`, `Gestor_CentroOeste`, `Gestor_Sudeste` e `Gestor_Sul`).*
 
 ### RLS Dinâmico
 Solução escalável que elimina a necessidade de manutenção manual de perfis. Criou-se uma única função denominada **`Gestor_Regional_Dinamico`**. 
