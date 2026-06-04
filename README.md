@@ -29,7 +29,7 @@ Para garantir o fluxo correto dos filtros, os relacionamentos foram configurados
     * *Explicação:* Uma Unidade Federativa na tabela dimensão filtra os múltiplos registros de repasses ocorridos nela dentro da tabela fato.
 2.  **`dim_regioes[Regiao]` <─── (Muitos para Um) ─── `dim_usuarios_rls[regiao_permitida]`**
     * **Direção do filtro:** Única.
-    * *Explicação:* Como a tabela `dim_regioes` repete o nome da região para cada UF correspondente (ex: "Norte" aparece para AC, AM, etc.), ela assume o lado **Muitos (`*`)**, enquanto a tabela de usuários possui registros únicos por região, assumindo o lado **Um (`1`)**.
+    * *Explicação:* Como a tabela `dim_regioes` repete o nome da região para cada UF correspondente, ela assume o lado **Muitos (`*`)**, enquanto a tabela de usuários possui registros únicos por região, assumindo o lado **Um (`1`)**.
 
 ---
 
